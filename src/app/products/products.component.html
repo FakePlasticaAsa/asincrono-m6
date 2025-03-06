@@ -1,0 +1,78 @@
+<div class="flex justify-center">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="flex flex-col bg-gray-100 p-4 rounded-lg shadow-md">
+    <label class="mb-2 text-gray-700">
+      Reference Number:
+      <input class="p-2 mt-1 block w-full border border-gray-300 rounded-md" type="text" formControlName="referenceNumber" />
+    </label>
+
+    <p *ngIf="getControl('referenceNumber')?.invalid && getControl('referenceNumber')?.touched" class="text-red-500 mt-2">
+      Reference Number is required.
+    </p>
+
+    <label class="mb-2 text-gray-700">
+      Product Name:
+      <input class="p-2 mt-1 block w-full border border-gray-300 rounded-md" type="text" formControlName="productName" />
+    </label>
+
+    <p *ngIf="getControl('productName')?.invalid && getControl('productName')?.touched" class="text-red-500 mt-2">
+      Product Name is required.
+    </p>
+
+    <label class="mb-2 text-gray-700">
+      Price:
+      <input class="p-2 mt-1 block w-full border border-gray-300 rounded-md" type="number" formControlName="price" />
+    </label>
+
+    <p *ngIf="getControl('price')?.invalid && getControl('price')?.touched" class="text-red-500 mt-2">
+      <span *ngIf="getControl('price')?.hasError('required')">Price is required.</span>
+      <span *ngIf="getControl('price')?.hasError('min')">Price must be greater than 0.</span>
+    </p>
+
+    <label class="mb-2 text-gray-700">
+      Description:
+      <textarea class="p-2 mt-1 block w-full border border-gray-300 rounded-md" formControlName="description"></textarea>
+    </label>
+
+    <p *ngIf="getControl('description')?.invalid && getControl('description')?.touched" class="text-red-500 mt-2">
+      Description cannot exceed 500 characters.
+    </p>
+
+    <label class="mb-2 text-gray-700">
+      Product Type:
+      <select class="p-2 mt-1 block w-full border border-gray-300 rounded-md" formControlName="productType">
+        <option value="Electronics">Sports</option>
+        <option value="Grocery">Casual</option>
+        <option value="Clothing">Formal</option>
+      </select>
+    </label>
+
+    <p *ngIf="getControl('productType')?.invalid && getControl('productType')?.touched" class="text-red-500 mt-2">
+      Product Type is required.
+    </p>
+
+    <label class="mb-2 text-gray-700">
+      On Sale:
+      <input class="p-2 mt-1" type="checkbox" formControlName="productOnSale" />
+    </label>
+
+    <label class="mb-2 text-gray-700">
+      Product Image:
+      <input class="p-2 mt-1 block w-full border border-gray-300 rounded-md" type="text" formControlName="productImage" />
+    </label>
+
+    <p *ngIf="getControl('productImage')?.invalid && getControl('productImage')?.touched" class="text-red-500 mt-2">
+      Product Image is required.
+    </p>
+
+    <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md">Submit Product</button>
+
+    <!-- Correct validation message syntax -->
+    <p *ngIf="formSubmitted && productForm.invalid" class="text-red-500 mt-2">
+      Please fill in the blanks.
+    </p>
+  </form>
+
+
+  
+  
+</div>
