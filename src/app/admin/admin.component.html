@@ -1,19 +1,67 @@
-<div class="p-6 bg-gray-100 min-h-screen">
-  <h1 class="text-2xl font-bold mb-4">Admin Panel - All Products</h1>
+<div class="p-6 bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Admin Panel - All Products</h1>
 
-  <div *ngIf="productService.products().length === 0" class="text-gray-600">
-    No products have been added yet.
-  </div>
+    @if (filteredProducts().length === 0) {
+      <div class="bg-white rounded-lg shadow-sm p-8 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-xl font-medium text-gray-500">No products match your search.</p>
+        <p class="text-gray-400 mt-2">Try adjusting your search criteria.</p>
+      </div>
+    }
 
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div *ngFor="let product of productService.products()" class="bg-white p-4 rounded-lg shadow-md">
-      <h3 class="text-xl font-semibold mb-2">{{ product.productName }}</h3>
-      <p><strong>Reference Number:</strong> {{ product.referenceNumber }}</p>
-      <p><strong>Price:</strong> €{{ product.price }}</p>
-      <p><strong>Description:</strong> {{ product.description }}</p>
-      <p><strong>Product Type:</strong> {{ product.productType }}</p>
-      <p><strong>On Sale:</strong> {{ product.productOnSale ? 'Yes' : 'No' }}</p>
-      <img src="http://100.123.97.64/imgs/{{ product.productImage }}.png" alt="{{ product.productName }}" class="w-full h-auto mt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      @for (product of filteredProducts(); track product.id) {
+        <div class="bg-white rounded-xl shadow overflow-hidden transition duration-300 hover:shadow-lg hover:translate-y-[-4px]">
+          <div class="relative">
+            <img
+              src="http://100.123.97.64/imgs/{{ product.image }}.png"
+              alt="{{ product.name }}"
+              class="w-full h-64 object-contain bg-gray-50 p-6"
+            >
+            @if (product.on_sale) {
+              <span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">ON SALE</span>
+            }
+          </div>
+          
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ product.name }}</h3>
+              <span class="text-lg font-bold text-indigo-600">€{{ product.price }}</span>
+            </div>
+            
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center text-sm">
+                <span class="text-gray-500 w-24">Reference:</span>
+                <span class="font-medium text-gray-700">{{ product.reference_number }}</span>
+              </div>
+              <div class="flex items-center text-sm">
+                <span class="text-gray-500 w-24">Category:</span>
+                <span class="font-medium text-gray-700">{{ product.category }}</span>
+              </div>
+            </div>
+            
+            <p class="text-sm text-gray-600 line-clamp-3 mb-4">{{ product.description }}</p>
+            <button (click)="cart.addToCart(product)">Añadir al carrito</button>
+
+            @if (authService.isAdmin()) {
+                            <button
+                (click)="onDeleteProduct(product.id)"
+                class="w-full flex items-center justify-center gap-2 px-4 py-2 bg-white border border-red-500 text-red-500 rounded-lg hover:bg-red-50 transition-colors duration-300"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                Remove Product
+              </button>
+            }
+            
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>

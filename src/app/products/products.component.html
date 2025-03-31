@@ -40,9 +40,9 @@
     <label class="mb-2 text-gray-700">
       Product Type:
       <select class="p-2 mt-1 block w-full border border-gray-300 rounded-md" formControlName="productType">
-        <option value="Electronics">Sports</option>
-        <option value="Grocery">Casual</option>
-        <option value="Clothing">Formal</option>
+        <option value="Sports">Sports</option>
+        <option value="Casual">Casual</option>
+        <option value="Formal">Formal</option>
       </select>
     </label>
 
@@ -50,11 +50,16 @@
       Product Type is required.
     </p>
 
-    <label class="mb-2 text-gray-700">
-      On Sale:
-      <input class="p-2 mt-1" type="checkbox" formControlName="productOnSale" />
+    <label>
+      <input type="checkbox" formControlName="productOnSale">
+      On sale:
     </label>
 
+    <div>
+      <label for="stock">Stock:</label>
+      <input type="number" formControlName="stock" id="stock">
+    </div>
+    
     <label class="mb-2 text-gray-700">
       Product Image:
       <input class="p-2 mt-1 block w-full border border-gray-300 rounded-md" type="text" formControlName="productImage" />
@@ -66,13 +71,8 @@
 
     <button type="submit" class="mt-4 bg-blue-500 text-white py-2 px-4 rounded-md">Submit Product</button>
 
-    <!-- Correct validation message syntax -->
     <p *ngIf="formSubmitted && productForm.invalid" class="text-red-500 mt-2">
       Please fill in the blanks.
     </p>
   </form>
-
-
-  
-  
 </div>

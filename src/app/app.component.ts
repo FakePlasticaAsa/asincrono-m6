@@ -4,12 +4,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component';
 
 enum ProductType {
-  Electronics = 'Electronics',
-  Grocery = 'Grocery',
-  Clothing = 'Clothing',
-  Furniture = 'Furniture',
+  Sports = 'Sports',
+  Casual = 'Casual',
+  Formal = 'Formal',
 }
 
 @Component({

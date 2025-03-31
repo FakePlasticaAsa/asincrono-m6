@@ -1,0 +1,47 @@
+<!-- BOTÓN del carrito -->
+<div class="relative">
+    <button (click)="toggleDrawer()" class="relative">
+      🛒
+      @if (cart.cartItems().length > 0) {
+        <span class="absolute -top-1 -right-2 bg-red-600 text-white text-xs px-1.5 rounded-full">
+          {{ cart.cartItems().length }}
+        </span>
+      }
+    </button>
+  
+    <!-- PANEL del carrito -->
+    @if (cartOpen()) {
+      <div class="fixed top-16 right-4 w-80 bg-white shadow-xl rounded p-4 border z-50">
+        <h2 class="text-lg font-bold mb-3">Carrito</h2>
+  
+        @if (cart.cartItems().length === 0) {
+          <div class="text-gray-500 text-sm">Tu carrito está vacío.</div>
+        }
+  
+        @for (item of cart.cartItems(); track item.id) {
+          <div class="mb-3 border-b pb-2">
+            <p class="font-medium">{{ item.name }}</p>
+            <p class="text-sm text-gray-600">Cantidad: {{ item.quantity }}</p>
+            <p class="text-sm text-gray-600">€{{ item.price }}</p>
+            <button (click)="removeItem(item.id)" class="text-sm text-red-500 hover:underline mt-1">
+              Quitar
+            </button>
+          </div>
+        }
+  
+        @if (cart.cartItems().length > 0) {
+          <div class="mt-4 text-right text-sm font-semibold">
+            Total: €{{ total() }}
+          </div>
+  
+          <button
+            (click)="checkout()"
+            class="mt-2 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
+          >
+            Finalizar compra
+          </button>
+        }
+      </div>
+    }
+  </div>
+  
