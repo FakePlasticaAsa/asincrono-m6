@@ -36,7 +36,6 @@ export class CartDrawerComponent {
     this.http.post<{ message: string; orderId: number }>('http://100.123.97.64:3000/auth/orders', { items })
       .subscribe({
         next: res => {
-          alert(`Compra realizada. Orden ID: ${res.orderId}`);
           this.cart.clearCart();
           this.cartOpen.set(false);
         },

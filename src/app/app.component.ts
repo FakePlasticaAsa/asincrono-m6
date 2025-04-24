@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 enum ProductType {
   Sports = 'Sports',
   Casual = 'Casual',
